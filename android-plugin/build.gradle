@@ -1,5 +1,23 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
 apply plugin: 'com.android.library'
-apply plugin: "com.cpdroid.fat-aar"
 
 android {
     compileSdkVersion 29
@@ -30,11 +48,54 @@ dependencies {
      necessary since the Godot editor will also provide a version of the godot
      library when building the final binary.
      */
-    compileOnly fileTree(dir: './libs', include: ['godot-lib*.aar'])
-    embedded 'com.google.firebase:firebase-config:19.1.1'
+    compileOnly fileTree(dir: 'libs', include: ['godot-lib*.aar'])
+    implementation 'com.google.firebase:firebase-config:19.1.1'
 }
 
+group = 'ru.mobilap.godot'
+version = '0.0.1'
+ext {
+    artifact = 'godot-firebase-remoteconfig'
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
 afterEvaluate {
-    generateReleaseBuildConfig.enabled = false
-    generateDebugBuildConfig.enabled = false
+//    generateReleaseBuildConfig.enabled = false
+//    generateDebugBuildConfig.enabled = false
+
+    publishing {
+        publications {
+            MyPublication(MavenPublication) {
+                from components.release
+                groupId group
+                artifactId artifact
+                version version
+            }
+        }
+    }
+
+    // Bintray
+    bintray {
+        user = properties.getProperty("bintray.user")
+        key = properties.getProperty("bintray.apikey")
+        publications = ['MyPublication']
+        pkg {
+            repo = 'maven'
+            name = artifact
+            userOrg = 'mobilap'
+            desc = 'Firebase remote config plugin for godot engine.'
+            websiteUrl = 'https://github.com/DrMoriarty/godot-firebase-remoteconfig'
+            vcsUrl = 'https://github.com/DrMoriarty/godot-firebase-remoteconfig.git'
+            licenses = ["MIT", "BSD"]
+            publish = true
+            publicDownloadNumbers = true
+            version {
+            }
+        }
+    }
 }

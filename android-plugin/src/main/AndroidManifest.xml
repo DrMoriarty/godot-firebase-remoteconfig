@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="drm.godot.plugin">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="ru.mobilap.firebaseremoteconfig">
 
   <application>
     <!--
@@ -13,7 +12,7 @@
     -->
     <meta-data
         android:name="org.godotengine.plugin.v1.FirebaseRemoteConfig"
-        android:value="drm.godot.plugin.FirebaseRemoteConfigPlugin" />
+        android:value="ru.mobilap.firebaseremoteconfig.FirebaseRemoteConfig" />
   </application>
   <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

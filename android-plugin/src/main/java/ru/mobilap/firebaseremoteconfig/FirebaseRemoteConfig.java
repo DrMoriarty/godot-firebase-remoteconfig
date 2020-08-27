@@ -7,9 +7,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.HashMap;
 import org.godotengine.godot.Godot;
 import org.godotengine.godot.plugin.GodotPlugin;
 import org.godotengine.godot.plugin.SignalInfo;
+import org.godotengine.godot.Dictionary;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,7 +44,8 @@ public class FirebaseRemoteConfig extends GodotPlugin {
                              "get_double",
                              "get_int",
                              "get_string",
-                             "loaded");
+                             "loaded",
+                             "setDefaults");
     }
 
     @Override
@@ -90,5 +93,14 @@ public class FirebaseRemoteConfig extends GodotPlugin {
 
     public boolean loaded() {
         return _loaded;
+    }
+
+    public void setDefaults(final Dictionary defs) {
+        HashMap<String, Object> map = new HashMap<>();
+        for(String key: defs.get_keys()) {
+            map.put(key, defs.get(key));
+        }
+        
+        mFirebaseRemoteConfig.setDefaultsAsync(map);
     }
 }

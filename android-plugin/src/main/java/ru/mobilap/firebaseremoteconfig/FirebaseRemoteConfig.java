@@ -22,13 +22,12 @@ public class FirebaseRemoteConfig extends GodotPlugin {
 
     private final String TAG = FirebaseRemoteConfig.class.getName();
     final private SignalInfo loadedSignal = new SignalInfo("loaded");
-    private Godot activity = null;
     private com.google.firebase.remoteconfig.FirebaseRemoteConfig mFirebaseRemoteConfig = null;
     private boolean _loaded = false;
+    private boolean _signal_inited = false;
 
     public FirebaseRemoteConfig(Godot godot) {
         super(godot);
-        activity = godot;
         mFirebaseRemoteConfig = com.google.firebase.remoteconfig.FirebaseRemoteConfig.getInstance();
         init();
     }
@@ -50,6 +49,7 @@ public class FirebaseRemoteConfig extends GodotPlugin {
 
     @Override
     public Set<SignalInfo> getPluginSignals() {
+        _signal_inited = true;
         return Collections.singleton(loadedSignal);
     }
 
@@ -60,14 +60,15 @@ public class FirebaseRemoteConfig extends GodotPlugin {
 
     private void init() {
         mFirebaseRemoteConfig.fetchAndActivate()
-        .addOnCompleteListener(activity, new OnCompleteListener<Boolean>() {
+        .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
                 @Override
                 public void onComplete(Task<Boolean> task) {
                     if (task.isSuccessful()) {
                         boolean updated = task.getResult();
                         Log.d(TAG, "RemoteConfig params updated: " + updated);
                         _loaded = true;
-                        emitSignal(loadedSignal.getName());
+                        if (_signal_inited)
+                            emitSignal(loadedSignal.getName());
                     } else {
                         Log.w(TAG, "RemoteConfig update failed!");
                     }

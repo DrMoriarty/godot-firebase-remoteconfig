@@ -2,7 +2,7 @@
 
 name="FirebaseRemoteConfig"
 binary_type="remote"
-binary="ru.mobilap.godot:godot-firebase-remoteconfig:+"
+binary="ru.mobilap.godot:godot-firebase-remoteconfig:0.0.4"
 
 [dependencies]
 

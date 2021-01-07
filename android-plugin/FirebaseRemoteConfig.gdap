@@ -1,8 +1,8 @@
 [config]
 
 name="FirebaseRemoteConfig"
-binary_type="remote"
-binary="ru.mobilap.godot:godot-firebase-remoteconfig:0.0.4"
+binary_type="local"
+binary="FirebaseRemoteConfig.release.aar"
 
 [dependencies]
 

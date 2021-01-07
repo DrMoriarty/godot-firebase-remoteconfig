@@ -1,0 +1,22 @@
+{
+  "name": "firebase-remoteconfig",
+  "description": "Firebase Remote Config plugin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "url": "https://github.com/DrMoriarty/godot-firebase-remoteconfig",
+  "dependencies": [
+    "firebase-core"
+  ],
+  "files": {
+    "scripts": "scripts"
+  },
+  "autoload": {
+    "remote_config": "*res://scripts/remote_config.gd"
+  },
+  "platform_android": {
+    "files": {
+      "android-plugin/FirebaseRemoteConfig.gdap": "android/plugins/",
+      "android-plugin/build/outputs/aar/FirebaseRemoteConfig.release.aar": "android/plugins/"
+    }
+  }
+}

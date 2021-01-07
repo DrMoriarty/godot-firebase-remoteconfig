@@ -1,11 +1,3 @@
-# godot-firebase-remoteconfig
+# Firebase Remote Config plugin for godot engine.
 
-Firebase Remote Config plugin for godot engine. You need godot version 3.2.2.beta or higher.
-
-## Android usage
-
-Copy `FirebaseRemoteConfig.gdap` to `android/plugins`. Then enable plugin `FirebaseRemoteConfig` in export settings.
-
-## iOS usage
-
-Coming soon...
+Use [NativeLib Addon](https://github.com/DrMoriarty/nativelib) or [NativeLib-CLI](https://github.com/DrMoriarty/nativelib-cli) for installation.

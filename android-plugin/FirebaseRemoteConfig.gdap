@@ -7,5 +7,5 @@ binary="FirebaseRemoteConfig.release.aar"
 [dependencies]
 
 local=[]
-remote=[]
+remote=["com.google.firebase:firebase-config:19.1.1"]
 custom_maven_repos=["https://dl.bintray.com/mobilap/maven/"]
